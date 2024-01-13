@@ -92,6 +92,7 @@
         if (e.which === 13) { // Enter key
           var userMessage = $userInput.val();
           displayMessage(userMessage, 'user');
+          $(".current-response").removeClass(".current-response");
           sendMessage(userMessage);
           $userInput.val('');
         }
@@ -102,6 +103,7 @@
         // Simulate API call (replace this with your actual backend API endpoint)
         var fakeApiResponse = "Backend: You said: " + message;
         displayMessage(fakeApiResponse, 'response');
+        $(".current-response").html(fakeApiResponse + '-changed');
 
         // Scroll to the bottom of the chat messages
         $chatMessages.scrollTop($chatMessages[0].scrollHeight);
@@ -110,7 +112,8 @@
       // Function to display messages in the chat window
       function displayMessage(message, type) {
         var messageClass = (type === 'response') ? 'response-message' : 'user-message';
-        $chatMessages.append('<div class="' + messageClass + '">' + message + '</div>');
+        if (type == 'response') $chatMessages.append('<div class="' + messageClass + ' current-response">' + message + '</div>');
+        else $chatMessages.append('<div class="' + messageClass + '">' + message + '</div>');
       }
     });
   </script>
